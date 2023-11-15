@@ -8,7 +8,7 @@ export const ModalBackground = styled(motion.div)`
   right: 0;
   bottom: 0;
   backdrop-filter: blur(5px);
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -16,8 +16,8 @@ export const ModalBackground = styled(motion.div)`
 `;
 
 export const ModalContainer = styled(motion.div)`
-  background: var(--color-black);
-  border: 2px solid var(--color-blue);
+  background: ${({ theme }) => theme.background};
+  border: 2px solid ${({ theme }) => theme.accent};
   width: 100%;
   max-width: 400px;
   padding: 2rem;

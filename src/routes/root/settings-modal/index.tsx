@@ -1,6 +1,7 @@
 import Button from "@/components/button";
 import Modal from "@/components/modal";
-import { useState } from "react";
+import { useModalStore } from "@/components/modal/store";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useSettingsStore } from "./store";
 
@@ -12,10 +13,18 @@ const StyledButtonsContainer = styled.div`
 `;
 
 const SettingsModal: React.FC = () => {
-  const { setUnits, setTimeFormat } = useSettingsStore();
+  const { setUnits, setTimeFormat, units, timeFormat } = useSettingsStore();
+  const { isModalOpen } = useModalStore();
 
-  const [localUnits, setLocalUnits] = useState<string>("Metric");
-  const [localTimeFormat, setLocalTimeFormat] = useState<string>("24h");
+  const [localUnits, setLocalUnits] = useState<string>(units);
+  const [localTimeFormat, setLocalTimeFormat] = useState<string>(timeFormat);
+
+  useEffect(() => {
+    if (isModalOpen) {
+      setLocalUnits(units);
+      setLocalTimeFormat(timeFormat);
+    }
+  }, [isModalOpen, units, timeFormat]);
 
   const saveSettings = () => {
     setUnits(localUnits as "Imperial" | "Metric" | "Standard");

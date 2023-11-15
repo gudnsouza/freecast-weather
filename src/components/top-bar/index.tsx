@@ -1,3 +1,4 @@
+import useThemeStore from "@/style/theme-store";
 import themeSwitchIcon from "/weather-icons/theme-switch.svg";
 import styled from "styled-components";
 import { useModalStore } from "../modal/store";
@@ -29,22 +30,31 @@ const Button = styled.button`
   cursor: pointer;
   background: transparent;
   font-weight: 500;
-  color: var(--color-white);
+  color: ${({ theme }) => theme.text};
 
   &:hover {
-    color: var(--color-blue);
+    color: ${({ theme }) => theme.accent};
   }
 `;
 
 const TopBar: React.FC = () => {
   const { openModal } = useModalStore();
+  const { toggleTheme } = useThemeStore();
   return (
     <StyledTopBar>
       <Clock />
       <StyledControls>
         <Button>Search</Button>
         <Button onClick={openModal}>Settings</Button>
-        <StyledIcon src={themeSwitchIcon} alt="Theme Switch" />
+        <button
+          style={{
+            display: "flex",
+            alignItems: "center",
+          }}
+          onClick={toggleTheme}
+        >
+          <StyledIcon src={themeSwitchIcon} alt="Theme Switch" />
+        </button>
       </StyledControls>
     </StyledTopBar>
   );

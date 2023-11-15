@@ -10,18 +10,18 @@ type ButtonProps = {
 
 const StyledButton = styled.button<ButtonProps>`
   background: transparent;
-  border: 2px solid var(--color-blue);
+  border: 2px solid ${({ theme }) => theme.accent};
   width: 100%;
   border-radius: 10px;
   padding: 14px;
-  color: var(--color-white);
+  color: ${({ theme }) => theme.text};
   cursor: pointer;
   transition: all 0.3s;
 
   &:hover {
-    background-color: var(--color-white);
-    color: var(--color-blue);
-    border-color: var(--color-white);
+    background-color: ${({ theme }) => theme.text};
+    color: ${({ theme }) => theme.accent};
+    border-color: ${({ theme }) => theme.text};
   }
 
   ${(props) =>
@@ -41,9 +41,9 @@ const StyledButton = styled.button<ButtonProps>`
   ${(props) =>
     props.$isActiveStyle &&
     css`
-      background-color: var(--color-white);
-      border-color: var(--color-white);
-      color: var(--color-blue);
+      background-color: ${({ theme }) => theme.text};
+      color: ${({ theme }) => theme.accent};
+      border-color: ${({ theme }) => theme.text};
     `}
 `;
 
