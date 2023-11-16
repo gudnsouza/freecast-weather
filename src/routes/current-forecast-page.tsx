@@ -30,10 +30,11 @@ const TimeDisplay: React.FC<{ timestamp: number; timezone: string }> = ({
   return <>{formatTime(date)}</>;
 };
 
-const CurrentForecast: React.FC = () => {
+const CurrentForecastPage: React.FC = () => {
   const { selectedCity } = useCityStore();
   const { units } = useSettingsStore();
-  const tempSuffix = units === "metric" ? "C" : "F";
+  const tempSuffix =
+    units === "metric" ? "C" : units === "standard" ? "K" : "F";
   const { data, isLoading } = useForecast();
 
   if (!selectedCity)
@@ -107,4 +108,4 @@ const CurrentForecast: React.FC = () => {
   );
 };
 
-export default CurrentForecast;
+export default CurrentForecastPage;

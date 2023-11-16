@@ -4,7 +4,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import GlobalStyle from "./global-style";
 import useThemeStore from "./hooks/useThemeStore";
-import CurrentForecast from "./routes/current-forecast";
+import FiveDaysForecastPage from "./routes/5-days-forecast-page";
+import CurrentForecastPage from "./routes/current-forecast-page";
 import ErrorPage from "./routes/error-page";
 import Root from "./routes/root/index";
 
@@ -25,7 +26,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <CurrentForecast />,
+        element: <CurrentForecastPage />,
+      },
+      {
+        path: "/5days",
+        element: <FiveDaysForecastPage />,
       },
     ],
   },

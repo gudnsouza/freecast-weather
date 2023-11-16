@@ -40,8 +40,8 @@ const ForecastPeriodSelector: React.FC = () => {
           Now
         </Button>
         <Button
-          $isActiveStyle={location.pathname === "/5-days"}
-          onClick={() => navigate("/5-days")}
+          $isActiveStyle={location.pathname === "/5days"}
+          onClick={() => navigate("/5days")}
         >
           5 Days
         </Button>
