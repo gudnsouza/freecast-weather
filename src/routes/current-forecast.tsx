@@ -1,7 +1,5 @@
 import { useCityStore } from "@/hooks/useCityStore";
-import { useSettingsStore } from "@/hooks/useSettingsStore";
-import { getWeatherData } from "@/services/open-weather/get-weather-data";
-import { useQuery } from "@tanstack/react-query";
+import { useForecast } from "@/hooks/useForecast";
 import styled from "styled-components";
 
 const StyledCurrentForecastContainer = styled.div`
@@ -12,19 +10,8 @@ const StyledCurrentForecastContainer = styled.div`
 `;
 
 const CurrentForecast: React.FC = () => {
-  const { units } = useSettingsStore();
   const { selectedCity } = useCityStore();
-
-  const { data, isLoading } = useQuery({
-    queryKey: ["city-forecast", selectedCity, units],
-    queryFn: () =>
-      getWeatherData({
-        units,
-        lat: selectedCity!.lat,
-        lon: selectedCity!.lon,
-      }),
-    enabled: !!selectedCity,
-  });
+  const { data, isLoading } = useForecast();
 
   if (!selectedCity)
     return (
