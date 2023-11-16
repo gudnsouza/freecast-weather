@@ -1,6 +1,6 @@
+import ThemeSwitchIcon from "@/assets/weather-icons/theme-switch.svg";
 import { useModalStore } from "@/hooks/useModalStore";
 import useThemeStore from "@/hooks/useThemeStore";
-import themeSwitchIcon from "/weather-icons/theme-switch.svg";
 import styled from "styled-components";
 import Clock from "./clock";
 
@@ -19,8 +19,9 @@ const StyledControls = styled.div`
   gap: 1rem;
 `;
 
-const StyledIcon = styled.img`
+const StyledThemeSwitchIcon = styled(ThemeSwitchIcon)`
   height: 1rem;
+  width: 1rem;
   border-radius: 50%;
   background: #fff;
   border: solid 1px white;
@@ -54,7 +55,7 @@ const TopBar: React.FC = () => {
           }}
           onClick={toggleTheme}
         >
-          <StyledIcon src={themeSwitchIcon} alt="Theme Switch" />
+          <StyledThemeSwitchIcon />
         </button>
       </StyledControls>
     </StyledTopBar>

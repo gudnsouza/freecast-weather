@@ -4,7 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 import { renderHook } from "@testing-library/react";
 import { useForecast } from "../useForecast";
 
-// Mock the hooks and modules
 jest.mock("@/services/open-weather/get-weather-data", () => ({
   getWeatherData: jest.fn(),
 }));

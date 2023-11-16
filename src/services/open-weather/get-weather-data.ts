@@ -16,7 +16,7 @@ type TWeatherResponse = {
     sunset: number;
     humidity: number;
     feels_like: number;
-    temp: string;
+    temp: number;
     weather: Array<TWeatherProp>;
   };
   daily: Array<{

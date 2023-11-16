@@ -1,7 +1,9 @@
+import { useSettingsStore } from "@/hooks/useSettingsStore";
 import { useEffect, useState } from "react";
 
 const Clock: React.FC = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
+  const { timeFormat } = useSettingsStore();
 
   useEffect(() => {
     const timerId = setInterval(() => {
@@ -17,9 +19,10 @@ const Clock: React.FC = () => {
     return date.toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit",
-      hour12: false,
+      hour12: timeFormat === "24h" ? false : true,
     });
   };
+
   return <>{formatTime(currentTime)}</>;
 };
 
