@@ -1,24 +1,34 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
-  /* Define color variables */
-  :root {
-    --color-black: #000;
-    --color-white: #FFF;
-    --color-purple: #BF5AF2;
-    --color-yellow: #FFD60A;
-    --color-blue: #0A84FF;
-    --color-cyan: #64D2FF;
+  /* Global Styles */
+  * {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
   }
 
-  /* Global Styles */
-  body {
+  html {
+    font-size: 16px;
+  }
+
+  body, input, button {
     margin: 0;
     padding: 0;
     font-family: 'Helvetica Neue', Helvetica,  sans-serif;
     background-color: ${(props) => props.theme.background};
     color: ${(props) => props.theme.text};
   }
+
+  #root {
+    width: 100%;
+    height: 100vh;
+    padding: 0.75rem 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+
 
   button {
     cursor: pointer;

@@ -8,20 +8,20 @@ const Root: React.FC = () => {
   return (
     <>
       <SettingsModal />
+      <TopBar />
       <div
         style={{
-          paddingLeft: "1rem",
-          paddingRight: "1rem",
+          height: "100%",
           display: "flex",
           flexDirection: "column",
-          height: "100vh",
+          justifyContent: "center",
+          gap: "2rem",
         }}
       >
-        <TopBar />
         <Outlet />
         <ForecastPeriodSelector />
-        <CityGridFooter />
       </div>
+      <CityGridFooter />
     </>
   );
 };

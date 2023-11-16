@@ -19,10 +19,10 @@ export const ModalContainer = styled(motion.div)`
   background: ${({ theme }) => theme.background};
   border: 2px solid ${({ theme }) => theme.accent};
   width: 100%;
-  max-width: 400px;
+  max-width: 500px;
   padding: 2rem;
-  padding-left: 6rem;
-  padding-right: 6rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -35,6 +35,7 @@ export const ModalHeader = styled.div`
 `;
 
 export const ModalContent = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
 `;

@@ -1,3 +1,4 @@
+import Unknown from "@/assets/weather-icons/unknown.svg";
 import ClearSky from "@/assets/weather-icons/weather-clear.svg";
 import Clouds from "@/assets/weather-icons/weather-cloudy.svg";
 import Fog from "@/assets/weather-icons/weather-fog.svg";
@@ -52,7 +53,11 @@ const ForecastIcon: React.FC<{ condition: string }> = ({ condition }) => {
       </WeatherIconContainer>
     );
 
-  return <div></div>;
+  return (
+    <WeatherIconContainer>
+      <Unknown />
+    </WeatherIconContainer>
+  );
 };
 
 export default ForecastIcon;

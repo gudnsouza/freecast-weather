@@ -10,6 +10,7 @@ const StyledButtonsContainer = styled.div`
   align-items: center;
   justify-items: center;
   gap: 12px;
+  width: 100%;
 `;
 
 const SettingsModal: React.FC = () => {

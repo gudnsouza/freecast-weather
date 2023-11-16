@@ -3,6 +3,7 @@ import { useModalStore } from "@/hooks/useModalStore";
 import useThemeStore from "@/hooks/useThemeStore";
 import styled from "styled-components";
 import Clock from "./clock";
+import SearchBox from "./search-box";
 
 const StyledTopBar = styled.div`
   padding-top: 1rem;
@@ -46,7 +47,7 @@ const TopBar: React.FC = () => {
     <StyledTopBar>
       <Clock />
       <StyledControls>
-        <Button>Search</Button>
+        <SearchBox />
         <Button onClick={openModal}>Settings</Button>
         <button
           style={{

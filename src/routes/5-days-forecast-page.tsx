@@ -22,11 +22,11 @@ const getWeekday = (date: Date) => {
 };
 
 const Wrapper = styled.div`
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 40%;
 `;
 
 const FiveDaysForecastPage: React.FC = () => {
@@ -67,7 +67,7 @@ const FiveDaysForecastPage: React.FC = () => {
             <ForecastIcon condition={daily.weather[0].main} />
             <div>{daily.weather[0].main}</div>
             <div>
-              H:{Math.round(daily.temp.max)}&deg;{tempSuffix}/L:
+              H: {Math.round(daily.temp.max)}&deg;{tempSuffix}/L:{" "}
               {Math.round(daily.temp.min)}
               &deg;
               {tempSuffix}

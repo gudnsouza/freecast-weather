@@ -9,7 +9,7 @@ type ButtonProps = {
 };
 
 const StyledButton = styled.button<ButtonProps>`
-  background: transparent;
+  background: ${({ theme }) => theme.backgorund};
   border: 2px solid ${({ theme }) => theme.accent};
   width: 100%;
   border-radius: 10px;

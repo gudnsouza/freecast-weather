@@ -5,10 +5,10 @@ import { useSettingsStore } from "@/hooks/useSettingsStore";
 import styled from "styled-components";
 
 const StyledCurrentForecastContainer = styled.div`
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 40%;
 `;
 
 const TimeDisplay: React.FC<{ timestamp: number; timezone: string }> = ({

@@ -1,40 +1,20 @@
-import { CITIES, TCity } from "@/constants/cities"; // Import your cities constant
-
+import { TCity } from "@/constants/cities";
 import { useCityStore } from "@/hooks/useCityStore";
 import { AnimatePresence, motion } from "framer-motion";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import Button from "../button";
 
 const GridContainer = styled.div`
   display: grid;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  grid-row-gap: 1rem;
   grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(3, auto);
-  gap: 10px;
-  margin-top: 20px;
+  grid-template-rows: repeat(3, 1fr);
+  grid-column-gap: 1rem;
 `;
 
-const shuffleArray = (array: Array<TCity>) => {
-  const shuffled = [...array];
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    if (i !== j) {
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-  }
-  return shuffled;
-};
-
 const CityGridFooter: React.FC = () => {
-  const [visibleCities, setVisibleCities] = useState<Array<TCity>>([]);
-  const { selectCity, selectedCity } = useCityStore();
-  useEffect(() => {
-    const shuffledCities = shuffleArray(CITIES);
-    const initialCities = shuffledCities.slice(0, 18);
-    setVisibleCities(initialCities);
-  }, []);
+  const { visibleCities, selectCity, selectedCity } = useCityStore();
 
   const handleCityClick = (city: TCity) => {
     selectCity(city);
@@ -45,10 +25,12 @@ const CityGridFooter: React.FC = () => {
       <AnimatePresence>
         {visibleCities.map((city) => (
           <motion.div
+            layout
+            layoutId={city.name}
             key={city.name}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ opacity: 0, scale: 0.75 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.75, transition: { duration: 0.2 } }}
           >
             <Button
               $isActiveStyle={selectedCity?.name === city.name}
