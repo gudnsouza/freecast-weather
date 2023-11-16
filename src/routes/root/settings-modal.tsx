@@ -1,7 +1,7 @@
 import Button from "@/components/button";
 import Modal from "@/components/modal";
 import { useModalStore } from "@/hooks/useModalStore";
-import { useSettingsStore } from "@/hooks/useSettingsStore";
+import { TUnits, useSettingsStore } from "@/hooks/useSettingsStore";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
@@ -16,7 +16,7 @@ const SettingsModal: React.FC = () => {
   const { setUnits, setTimeFormat, units, timeFormat } = useSettingsStore();
   const { isModalOpen } = useModalStore();
 
-  const [localUnits, setLocalUnits] = useState<string>(units);
+  const [localUnits, setLocalUnits] = useState<TUnits>(units);
   const [localTimeFormat, setLocalTimeFormat] = useState<string>(timeFormat);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ const SettingsModal: React.FC = () => {
   }, [isModalOpen, units, timeFormat]);
 
   const saveSettings = () => {
-    setUnits(localUnits as "Imperial" | "Metric" | "Standard");
+    setUnits(localUnits as TUnits);
     setTimeFormat(localTimeFormat as "AM/PM" | "24h");
   };
 
@@ -52,22 +52,22 @@ const SettingsModal: React.FC = () => {
           <StyledButtonsContainer>
             <Button
               size="sm"
-              $isActiveStyle={localUnits === "Imperial"}
-              onClick={() => setLocalUnits("Imperial")}
+              $isActiveStyle={localUnits === "imperial"}
+              onClick={() => setLocalUnits("imperial")}
             >
               Imperial
             </Button>
             <Button
               size="sm"
-              $isActiveStyle={localUnits === "Metric"}
-              onClick={() => setLocalUnits("Metric")}
+              $isActiveStyle={localUnits === "metric"}
+              onClick={() => setLocalUnits("metric")}
             >
               Metric
             </Button>
             <Button
               size="sm"
-              $isActiveStyle={localUnits === "Standard"}
-              onClick={() => setLocalUnits("Standard")}
+              $isActiveStyle={localUnits === "standard"}
+              onClick={() => setLocalUnits("standard")}
             >
               Standard
             </Button>

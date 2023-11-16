@@ -35,7 +35,6 @@ const useThemeStore = create<ThemeState>()(
     }),
     {
       name: "theme-preference",
-      getStorage: () => localStorage,
     }
   )
 );

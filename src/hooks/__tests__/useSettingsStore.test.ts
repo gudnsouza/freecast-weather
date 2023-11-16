@@ -4,7 +4,7 @@ import { useSettingsStore } from "../useSettingsStore";
 describe("useSettingsStore hook", () => {
   it("should start with default settings", () => {
     const { result } = renderHook(() => useSettingsStore());
-    expect(result.current.units).toBe("Metric");
+    expect(result.current.units).toBe("metric");
     expect(result.current.timeFormat).toBe("24h");
   });
 
@@ -22,9 +22,9 @@ describe("useSettingsStore hook", () => {
     const { result } = renderHook(() => useSettingsStore());
 
     act(() => {
-      result.current.setUnits("Imperial");
+      result.current.setUnits("imperial");
     });
 
-    expect(result.current.units).toBe("Imperial");
+    expect(result.current.units).toBe("imperial");
   });
 });
