@@ -21,16 +21,7 @@ interface ThemeState {
 const getInitialTheme = (): typeof lightTheme | typeof darkTheme => {
   const storedTheme =
     typeof window !== "undefined" ? localStorage.getItem("theme") : null;
-  if (storedTheme === "dark") {
-    return darkTheme;
-  } else if (storedTheme === "light") {
-    return lightTheme;
-  } else {
-    const prefersDark =
-      window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches;
-    return prefersDark ? darkTheme : lightTheme;
-  }
+  return storedTheme === "dark" ? lightTheme : darkTheme;
 };
 
 const useThemeStore = create<ThemeState>()(

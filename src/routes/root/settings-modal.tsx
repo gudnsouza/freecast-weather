@@ -1,9 +1,9 @@
 import Button from "@/components/button";
 import Modal from "@/components/modal";
-import { useModalStore } from "@/components/modal/store";
+import { useModalStore } from "@/hooks/useModalStore";
+import { useSettingsStore } from "@/hooks/useSettingsStore";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useSettingsStore } from "./store";
 
 const StyledButtonsContainer = styled.div`
   display: flex;

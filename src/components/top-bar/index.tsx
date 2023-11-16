@@ -1,7 +1,7 @@
-import useThemeStore from "@/style/theme-store";
+import { useModalStore } from "@/hooks/useModalStore";
+import useThemeStore from "@/hooks/useThemeStore";
 import themeSwitchIcon from "/weather-icons/theme-switch.svg";
 import styled from "styled-components";
-import { useModalStore } from "../modal/store";
 import Clock from "./clock";
 
 const StyledTopBar = styled.div`

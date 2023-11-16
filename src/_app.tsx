@@ -1,11 +1,11 @@
 import * as React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
+import GlobalStyle from "./global-style";
+import useThemeStore from "./hooks/useThemeStore";
 import CurrentForecast from "./routes/current-forecast";
 import ErrorPage from "./routes/error-page";
 import Root from "./routes/root/index";
-import GlobalStyle from "./style/global-style";
-import useThemeStore from "./style/theme-store";
 
 const router = createBrowserRouter([
   {

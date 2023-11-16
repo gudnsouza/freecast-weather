@@ -1,7 +1,7 @@
+import { useModalStore } from "@/hooks/useModalStore";
 import { AnimatePresence } from "framer-motion";
 import Button from "../button";
 import Clock from "../top-bar/clock";
-import { useModalStore } from "./store";
 import {
   ModalBackground,
   ModalContainer,
