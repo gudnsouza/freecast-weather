@@ -19,12 +19,15 @@ type TChartProps = {
 };
 
 export function TemperatureChart({ data, mode }: TChartProps) {
-  const { unitsSuffix } = useSettingsStore();
+  const { unitsSuffix, timeFormat } = useSettingsStore();
   const formattedData = data.map((item) => {
     const label =
       mode === "days"
         ? getWeekday(new Date(item.dt * 1000))
-        : getDtHour(new Date(item.dt * 1000));
+        : getDtHour(
+            new Date(item.dt * 1000),
+            timeFormat === "24h" ? true : false
+          );
 
     return {
       ...item,

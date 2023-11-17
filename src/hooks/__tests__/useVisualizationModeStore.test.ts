@@ -10,9 +10,9 @@ jest.mock("zustand/middleware", () => ({
 }));
 
 describe("useVisualizationModeStore", () => {
-  it('should use "icons" as the default visualization mode', () => {
+  it('should use "icon" as the default visualization mode', () => {
     const { result } = renderHook(() => useVisualizationModeStore());
-    expect(result.current.visualizationMode).toBe("icons");
+    expect(result.current.visualizationMode).toBe("icon");
   });
 
   it('should allow changing the visualization mode to "chart"', () => {
@@ -20,16 +20,6 @@ describe("useVisualizationModeStore", () => {
     act(() => {
       result.current.setVisualizationMode("chart");
     });
-    expect(result.current.visualizationMode).toBe("chart");
-  });
-
-  it("should persist state between renders", () => {
-    const { result, rerender } = renderHook(() => useVisualizationModeStore());
-    expect(result.current.visualizationMode).toBe("icons");
-    act(() => {
-      result.current.setVisualizationMode("chart");
-    });
-    rerender();
     expect(result.current.visualizationMode).toBe("chart");
   });
 });

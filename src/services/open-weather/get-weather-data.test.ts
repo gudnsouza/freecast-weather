@@ -59,7 +59,7 @@ describe("getWeatherData function", () => {
       params: {
         lat: 51.5074,
         lon: -0.1278,
-        exclude: "minutely,hourly,alerts",
+        exclude: "minutely,alerts",
         units,
       },
     });
