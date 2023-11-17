@@ -1,12 +1,18 @@
 import ForecastIcon from "@/components/forecast-icon";
-import { TemperatureChart } from "@/components/line-chart";
 import Loading from "@/components/loading";
 import VisualizationModeSelector from "@/components/visualization-mode-selector";
 import { useCityStore } from "@/hooks/useCityStore";
 import { useForecast } from "@/hooks/useForecast";
 import { useSettingsStore } from "@/hooks/useSettingsStore";
 import { useVisualizationModeStore } from "@/hooks/useVisualizationModeStore";
+import React, { Suspense } from "react";
 import styled from "styled-components";
+
+const TemperatureChart = React.lazy(() =>
+  import("@/components/line-chart").then((module) => ({
+    default: module.TemperatureChart,
+  }))
+);
 
 const StyledCurrentForecastContainer = styled.div`
   display: flex;
@@ -82,7 +88,9 @@ const CurrentForecastPage: React.FC = () => {
           {selectedCity.name} <VisualizationModeSelector />
         </div>
         <div style={{ width: "100%", maxHeight: "400px", maxWidth: "800px" }}>
-          <TemperatureChart data={data.hourly} mode="hours" />
+          <Suspense fallback={<Loading />}>
+            <TemperatureChart data={data.hourly} mode="hours" />
+          </Suspense>
         </div>
       </div>
     );

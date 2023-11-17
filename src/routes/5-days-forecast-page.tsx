@@ -1,5 +1,4 @@
 import ForecastIcon from "@/components/forecast-icon";
-import { TemperatureChart } from "@/components/line-chart";
 import Loading from "@/components/loading";
 import VisualizationModeSelector from "@/components/visualization-mode-selector";
 import { useCityStore } from "@/hooks/useCityStore";
@@ -7,7 +6,14 @@ import { useForecast } from "@/hooks/useForecast";
 import { useSettingsStore } from "@/hooks/useSettingsStore";
 import { useVisualizationModeStore } from "@/hooks/useVisualizationModeStore";
 import { getWeekday } from "@/utils/get-weekday";
+import React, { Suspense } from "react";
 import styled from "styled-components";
+
+const TemperatureChart = React.lazy(() =>
+  import("@/components/line-chart").then((module) => ({
+    default: module.TemperatureChart,
+  }))
+);
 
 const Styled5DayForecastContainer = styled.div`
   display: flex;
@@ -80,7 +86,9 @@ const FiveDaysForecastPage: React.FC = () => {
           {selectedCity.name} <VisualizationModeSelector />
         </div>
         <div style={{ width: "100%", maxWidth: "800px" }}>
-          <TemperatureChart mode="days" data={chartData!} />
+          <Suspense fallback={<Loading />}>
+            <TemperatureChart mode="days" data={chartData!} />
+          </Suspense>
         </div>
       </div>
     );

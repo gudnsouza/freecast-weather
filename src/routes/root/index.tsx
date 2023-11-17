@@ -1,13 +1,17 @@
 import CityGridFooter from "@/components/city-grid-footer";
 import ForecastPeriodSelector from "@/components/forecast-period-selector";
 import TopBar from "@/components/top-bar";
+import React, { Suspense } from "react";
 import { Outlet } from "react-router-dom";
-import SettingsModal from "./settings-modal";
+
+const SettingsModal = React.lazy(() => import("./settings-modal"));
 
 const Root: React.FC = () => {
   return (
     <>
-      <SettingsModal />
+      <Suspense fallback={<div>Loading settings...</div>}>
+        <SettingsModal />
+      </Suspense>
       <TopBar />
       <div
         style={{
