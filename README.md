@@ -1,6 +1,8 @@
-#Built with React + TypeScript + Vite
+# 🏄🏻‍♂️ Freecast Weather
 
-##How to run
+## Built with React + TypeScript + Vite
+
+### How to run
 
 1. Add your OpenWeather on the file <code>.env.local</code> and rename it to <code>.env</code>
 2. Install dependencies by running <code>npm i</code>
