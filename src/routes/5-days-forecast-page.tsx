@@ -1,7 +1,12 @@
 import ForecastIcon from "@/components/forecast-icon";
+import { TemperatureChart } from "@/components/line-chart";
+import Loading from "@/components/loading";
+import VisualizationModeSelector from "@/components/visualization-mode-selector";
 import { useCityStore } from "@/hooks/useCityStore";
 import { useForecast } from "@/hooks/useForecast";
 import { useSettingsStore } from "@/hooks/useSettingsStore";
+import { useVisualizationModeStore } from "@/hooks/useVisualizationModeStore";
+import { getWeekday } from "@/utils/get-weekday";
 import styled from "styled-components";
 
 const Styled5DayForecastContainer = styled.div`
@@ -17,10 +22,6 @@ const StyledContentContainer = styled.div`
   align-items: center;
 `;
 
-const getWeekday = (date: Date) => {
-  return date.toLocaleString("en-us", { weekday: "short" });
-};
-
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -31,10 +32,11 @@ const Wrapper = styled.div`
 
 const FiveDaysForecastPage: React.FC = () => {
   const { data, isLoading } = useForecast();
+  const { visualizationMode } = useVisualizationModeStore();
+
+  const chartData = data?.daily.map((day) => ({ dt: day.dt, ...day.temp }));
   const { selectedCity } = useCityStore();
-  const { units } = useSettingsStore();
-  const tempSuffix =
-    units === "metric" ? "C" : units === "standard" ? "K" : "F";
+  const { unitsSuffix } = useSettingsStore();
 
   if (!selectedCity)
     return (
@@ -46,7 +48,7 @@ const FiveDaysForecastPage: React.FC = () => {
   if (isLoading)
     return (
       <Wrapper>
-        <h1>Loading...</h1>
+        <Loading />
       </Wrapper>
     );
 
@@ -57,9 +59,46 @@ const FiveDaysForecastPage: React.FC = () => {
       </Wrapper>
     );
 
+  if (visualizationMode === "chart") {
+    return (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "1rem",
+            fontSize: "24px",
+          }}
+        >
+          {selectedCity.name} <VisualizationModeSelector />
+        </div>
+        <div style={{ width: "100%", maxWidth: "800px" }}>
+          <TemperatureChart mode="days" data={chartData!} />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <Wrapper>
-      <h1>{selectedCity.name}</h1>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "1rem",
+          fontSize: "24px",
+        }}
+      >
+        {selectedCity.name}
+        <VisualizationModeSelector />
+      </div>
       <Styled5DayForecastContainer>
         {data.daily.slice(0, 5).map((daily) => (
           <StyledContentContainer key={daily.dt}>
@@ -67,10 +106,10 @@ const FiveDaysForecastPage: React.FC = () => {
             <ForecastIcon condition={daily.weather[0].main} />
             <div>{daily.weather[0].main}</div>
             <div>
-              H: {Math.round(daily.temp.max)}&deg;{tempSuffix}/L:{" "}
+              H: {Math.round(daily.temp.max)}&deg;{unitsSuffix}/L:{" "}
               {Math.round(daily.temp.min)}
               &deg;
-              {tempSuffix}
+              {unitsSuffix}
             </div>
           </StyledContentContainer>
         ))}

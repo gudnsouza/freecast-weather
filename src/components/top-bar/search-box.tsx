@@ -3,7 +3,7 @@ import { useCityStore } from "@/hooks/useCityStore";
 import { useState } from "react";
 import styled from "styled-components";
 
-const SearchBoxContainer = styled.div`
+const SearchBoxContainer = styled.form`
   padding: 6px;
   display: flex;
   align-items: center;
@@ -14,6 +14,7 @@ const SearchBoxContainer = styled.div`
 const InputField = styled.input`
   background: transparent;
   border: none;
+  flex: 1;
 
   &::placeholder {
     color: ${({ theme }) => theme.text};
@@ -25,26 +26,22 @@ const StyledCloseCircleIcon = styled(CloseCircle)`
   height: 1rem;
   width: 1rem;
   fill: ${({ theme }) => theme.text};
+  cursor: pointer;
 `;
 
 const SearchBox: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const { setVisibleCities, visibleCities } = useCityStore();
+  const { setVisibleCities, visibleCities, selectCity } = useCityStore();
 
   const [originalCities] = useState(visibleCities);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = event.target.value.toLowerCase();
+    const inputValue = event.target.value;
     setSearchTerm(inputValue);
-
-    if (inputValue) {
-      const filteredCities = originalCities.filter((city) =>
-        city.name.toLowerCase().includes(inputValue)
-      );
-      setVisibleCities(filteredCities);
-    } else {
-      setVisibleCities(originalCities);
-    }
+    const filteredCities = originalCities.filter((city) =>
+      city.name.toLowerCase().includes(inputValue.toLowerCase())
+    );
+    setVisibleCities(filteredCities);
   };
 
   const handleClearSearch = () => {
@@ -52,16 +49,32 @@ const SearchBox: React.FC = () => {
     setVisibleCities(originalCities);
   };
 
+  const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const foundCity = visibleCities.find(
+      (city) => city.name.toLowerCase() === searchTerm.toLowerCase()
+    );
+    if (foundCity) {
+      selectCity(foundCity);
+    }
+  };
+
   return (
-    <SearchBoxContainer>
+    <SearchBoxContainer onSubmit={handleSearchSubmit}>
       <InputField
         placeholder="Search"
         value={searchTerm}
         onChange={handleInputChange}
       />
       <button
+        type="button"
         onClick={handleClearSearch}
-        style={{ display: "flex", alignItems: "center" }}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          border: "none",
+          background: "none",
+        }}
       >
         <StyledCloseCircleIcon />
       </button>

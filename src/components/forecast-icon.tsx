@@ -2,6 +2,7 @@ import Unknown from "@/assets/weather-icons/unknown.svg";
 import ClearSky from "@/assets/weather-icons/weather-clear.svg";
 import Clouds from "@/assets/weather-icons/weather-cloudy.svg";
 import Fog from "@/assets/weather-icons/weather-fog.svg";
+import Haze from "@/assets/weather-icons/weather-hail.svg";
 import Thunderstorm from "@/assets/weather-icons/weather-lightning-rainy.svg";
 import Pouring from "@/assets/weather-icons/weather-pouring.svg";
 import Snow from "@/assets/weather-icons/weather-snowy.svg";
@@ -50,6 +51,13 @@ const ForecastIcon: React.FC<{ condition: string }> = ({ condition }) => {
     return (
       <WeatherIconContainer>
         <Fog />
+      </WeatherIconContainer>
+    );
+
+  if (condition === "Haze")
+    return (
+      <WeatherIconContainer>
+        <Haze />
       </WeatherIconContainer>
     );
 

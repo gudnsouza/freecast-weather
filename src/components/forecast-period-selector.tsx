@@ -34,12 +34,14 @@ const ForecastPeriodSelector: React.FC = () => {
       </div>
       <StyledContainer>
         <Button
+          size="sm"
           $isActiveStyle={location.pathname === "/"}
           onClick={() => navigate("/")}
         >
           Now
         </Button>
         <Button
+          size="sm"
           $isActiveStyle={location.pathname === "/5days"}
           onClick={() => navigate("/5days")}
         >

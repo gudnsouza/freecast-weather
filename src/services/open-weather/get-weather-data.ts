@@ -29,6 +29,10 @@ type TWeatherResponse = {
     };
     weather: Array<TWeatherProp>;
   }>;
+  hourly: Array<{
+    temp: number;
+    dt: number;
+  }>;
 };
 
 export const getWeatherData = async ({
@@ -41,7 +45,7 @@ export const getWeatherData = async ({
   units: TUnits;
 }) => {
   const { data } = await openWeatherApi.get<TWeatherResponse>("/onecall", {
-    params: { lat, lon, exclude: "minutely,hourly,alerts", units },
+    params: { lat, lon, exclude: "minutely,alerts", units },
   });
 
   return data;

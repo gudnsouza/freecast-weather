@@ -15,7 +15,7 @@ const Root: React.FC = () => {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          gap: "2rem",
+          gap: "1rem",
         }}
       >
         <Outlet />

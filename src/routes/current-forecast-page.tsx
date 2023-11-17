@@ -1,7 +1,11 @@
 import ForecastIcon from "@/components/forecast-icon";
+import { TemperatureChart } from "@/components/line-chart";
+import Loading from "@/components/loading";
+import VisualizationModeSelector from "@/components/visualization-mode-selector";
 import { useCityStore } from "@/hooks/useCityStore";
 import { useForecast } from "@/hooks/useForecast";
 import { useSettingsStore } from "@/hooks/useSettingsStore";
+import { useVisualizationModeStore } from "@/hooks/useVisualizationModeStore";
 import styled from "styled-components";
 
 const StyledCurrentForecastContainer = styled.div`
@@ -32,9 +36,8 @@ const TimeDisplay: React.FC<{ timestamp: number; timezone: string }> = ({
 
 const CurrentForecastPage: React.FC = () => {
   const { selectedCity } = useCityStore();
-  const { units } = useSettingsStore();
-  const tempSuffix =
-    units === "metric" ? "C" : units === "standard" ? "K" : "F";
+  const { visualizationMode } = useVisualizationModeStore();
+  const { unitsSuffix } = useSettingsStore();
   const { data, isLoading } = useForecast();
 
   if (!selectedCity)
@@ -47,7 +50,7 @@ const CurrentForecastPage: React.FC = () => {
   if (isLoading)
     return (
       <StyledCurrentForecastContainer>
-        <h1>Loading...</h1>
+        <Loading />
       </StyledCurrentForecastContainer>
     );
 
@@ -57,50 +60,96 @@ const CurrentForecastPage: React.FC = () => {
         <h1>Problem retrieving data</h1>
       </StyledCurrentForecastContainer>
     );
-  return (
-    <StyledCurrentForecastContainer>
+
+  if (visualizationMode === "chart") {
+    return (
       <div
         style={{
           display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
           alignItems: "center",
-          gap: "2rem",
         }}
       >
         <div
           style={{
             display: "flex",
-            flexDirection: "column",
             alignItems: "center",
+            gap: "1rem",
             fontSize: "24px",
           }}
         >
-          {selectedCity.name}
-          <ForecastIcon condition={data.current.weather[0].main} />
-          {data.current.weather[0].main}
+          {selectedCity.name} <VisualizationModeSelector />
         </div>
-        <div>
-          <div>
-            Temp: {Math.round(data.current.temp)}&deg;
-            {tempSuffix}
+        <div style={{ width: "100%", maxHeight: "400px", maxWidth: "800px" }}>
+          <TemperatureChart data={data.hourly} mode="hours" />
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <StyledCurrentForecastContainer>
+      <div>
+        <div
+          style={{
+            display: "flex",
+            width: "100%",
+            alignItems: "center",
+            gap: "1rem",
+            fontSize: "24px",
+          }}
+        >
+          {selectedCity.name} <VisualizationModeSelector />
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "2rem",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              fontSize: "24px",
+            }}
+          >
+            <ForecastIcon condition={data.current.weather[0].main} />
+            {data.current.weather[0].main}
           </div>
-          <div>
-            Feels Like: {Math.round(data.current.feels_like)}&deg;
-            {tempSuffix}
-          </div>
-          <div>Humidity: {data.current.humidity}%</div>
-          <div>
-            Sunrise:{" "}
-            <TimeDisplay
-              timestamp={data.current.sunrise}
-              timezone={data.timezone}
-            />
-          </div>
-          <div>
-            Sunset:{" "}
-            <TimeDisplay
-              timestamp={data.current.sunset}
-              timezone={data.timezone}
-            />
+          <div
+            style={{
+              height: "100%",
+              flex: 1,
+            }}
+          >
+            <div>
+              Temp: {Math.round(data.current.temp)}&deg;
+              {unitsSuffix}
+            </div>
+            <div>
+              Feels Like: {Math.round(data.current.feels_like)}&deg;
+              {unitsSuffix}
+            </div>
+            <div>Humidity: {data.current.humidity}%</div>
+            <div>
+              Sunrise:{" "}
+              <TimeDisplay
+                timestamp={data.current.sunrise}
+                timezone={data.timezone}
+              />
+            </div>
+            <div>
+              Sunset:{" "}
+              <TimeDisplay
+                timestamp={data.current.sunset}
+                timezone={data.timezone}
+              />
+            </div>
           </div>
         </div>
       </div>
