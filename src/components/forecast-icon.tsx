@@ -22,12 +22,11 @@ export const WeatherIconContainer = styled.div<WeatherIconContainerProps>`
   }
 `;
 
-const ForecastIcon: React.FC<{ condition: string; isDayTime: boolean }> = ({
+const ForecastIcon: React.FC<{ condition: string; isDayTime?: boolean }> = ({
   condition,
-  isDayTime,
+  isDayTime = true,
 }) => {
   const { theme } = useThemeStore();
-  console.log({ theme });
   if (condition === "Clear")
     return (
       <WeatherIconContainer

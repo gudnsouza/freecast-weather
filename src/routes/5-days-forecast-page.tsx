@@ -108,8 +108,8 @@ const FiveDaysForecastPage: React.FC = () => {
         <VisualizationModeSelector />
       </div>
       <Styled5DayForecastContainer>
-        {data.daily.slice(0, 5).map((daily) => (
-          <StyledContentContainer key={daily.dt}>
+        {data.daily.slice(0, 5).map((daily, index) => (
+          <StyledContentContainer key={`${daily}${index}`}>
             {getWeekday(new Date(daily.dt * 1000))}
             <ForecastIcon condition={daily.weather[0].main} />
             <div>{daily.weather[0].main}</div>

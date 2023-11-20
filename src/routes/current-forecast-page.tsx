@@ -45,7 +45,6 @@ const CurrentForecastPage: React.FC = () => {
   const { visualizationMode } = useVisualizationModeStore();
   const { unitsSuffix } = useSettingsStore();
   const { data, isLoading } = useForecast();
-  console.log({ data });
 
   if (!selectedCity)
     return (
@@ -127,7 +126,10 @@ const CurrentForecastPage: React.FC = () => {
               fontSize: "24px",
             }}
           >
-            <ForecastIcon condition={data.current.weather[0].main} />
+            <ForecastIcon
+              isDayTime={data.isDayTime}
+              condition={data.current.weather[0].main}
+            />
             {data.current.weather[0].main}
           </div>
           <div
