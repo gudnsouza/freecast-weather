@@ -31,6 +31,7 @@ describe("useForecast", () => {
       queryKey: ["city-forecast", { lat: 0, lon: 0 }, "metric"],
       queryFn: expect.any(Function),
       enabled: true,
+      select: expect.any(Function),
     });
 
     expect(result.current.isLoading).toBe(true);

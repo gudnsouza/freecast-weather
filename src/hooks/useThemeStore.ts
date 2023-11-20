@@ -6,12 +6,15 @@ export const lightTheme = {
   text: "#000",
   accent: "#0A84FF",
   yellow: "#ffd60a",
+  purple: "#BF5AF2",
 };
 
 export const darkTheme = {
   background: "#000",
   text: "#FFF",
   accent: "#0A84FF",
+  yellow: "#ffd60a",
+  purple: "#BF5AF2",
 };
 
 interface ThemeState {

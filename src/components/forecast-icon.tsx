@@ -1,26 +1,39 @@
 import Unknown from "@/assets/weather-icons/unknown.svg";
-import ClearSky from "@/assets/weather-icons/weather-clear.svg";
+import Sun from "@/assets/weather-icons/weather-clear.svg";
 import Clouds from "@/assets/weather-icons/weather-cloudy.svg";
 import Fog from "@/assets/weather-icons/weather-fog.svg";
 import Haze from "@/assets/weather-icons/weather-hail.svg";
 import Thunderstorm from "@/assets/weather-icons/weather-lightning-rainy.svg";
+import Moon from "@/assets/weather-icons/weather-night.svg";
 import Pouring from "@/assets/weather-icons/weather-pouring.svg";
 import Snow from "@/assets/weather-icons/weather-snowy.svg";
+import useThemeStore from "@/hooks/useThemeStore";
 import styled from "styled-components";
 
-export const WeatherIconContainer = styled.div`
+type WeatherIconContainerProps = {
+  $colorFill?: string;
+};
+
+export const WeatherIconContainer = styled.div<WeatherIconContainerProps>`
   & > svg {
-    fill: ${(props) => props.theme.accent};
+    fill: ${(props) => props.$colorFill || props.theme.accent};
     width: 7rem;
     height: 7rem;
   }
 `;
 
-const ForecastIcon: React.FC<{ condition: string }> = ({ condition }) => {
+const ForecastIcon: React.FC<{ condition: string; isDayTime: boolean }> = ({
+  condition,
+  isDayTime,
+}) => {
+  const { theme } = useThemeStore();
+  console.log({ theme });
   if (condition === "Clear")
     return (
-      <WeatherIconContainer>
-        <ClearSky />
+      <WeatherIconContainer
+        $colorFill={isDayTime ? theme.yellow : theme.purple}
+      >
+        {isDayTime ? <Sun /> : <Moon />}
       </WeatherIconContainer>
     );
   if (condition === "Clouds")

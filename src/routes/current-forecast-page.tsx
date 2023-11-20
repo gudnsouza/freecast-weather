@@ -45,6 +45,7 @@ const CurrentForecastPage: React.FC = () => {
   const { visualizationMode } = useVisualizationModeStore();
   const { unitsSuffix } = useSettingsStore();
   const { data, isLoading } = useForecast();
+  console.log({ data });
 
   if (!selectedCity)
     return (

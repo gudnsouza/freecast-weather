@@ -6,12 +6,24 @@ const Clock: React.FC = () => {
   const { timeFormat } = useSettingsStore();
 
   useEffect(() => {
-    const timerId = setInterval(() => {
+    const updateTime = () => {
       setCurrentTime(new Date());
-    }, 1000 * 60);
+    };
+
+    const now = new Date();
+    const msUntilNextMinute =
+      (60 - now.getSeconds()) * 1000 - now.getMilliseconds();
+
+    const syncTimeoutId = setTimeout(() => {
+      updateTime();
+      const timerId = setInterval(updateTime, 1000 * 60);
+      return () => {
+        clearInterval(timerId);
+      };
+    }, msUntilNextMinute);
 
     return () => {
-      clearInterval(timerId);
+      clearTimeout(syncTimeoutId);
     };
   }, []);
 
