@@ -59,7 +59,7 @@ const ForecastIcon: React.FC<{ condition: string; isDayTime?: boolean }> = ({
         <Snow />
       </WeatherIconContainer>
     );
-  if (condition === "Mist")
+  if (condition === "Mist" || condition === "Fog")
     return (
       <WeatherIconContainer>
         <Fog />
